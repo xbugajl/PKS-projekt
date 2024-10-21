@@ -12,7 +12,7 @@ class P2PNode
     private static bool isRunning = true;
     private static bool hadHandshake = false;
     private static bool hasRecieved = false;
-    private static int typeOfData = -1; //0 = ack req, 1 = ack resp, 2 = txt, 3 = file
+    private static int typeOfData = -1; 
     private static int ack = 5;
     private static int fragmentFlag = -1;
     private static int fragmentOffset = 0;
@@ -64,21 +64,22 @@ class P2PNode
         string ackMessage = "";
         if (type == 0) ackMessage = "ackmsg";
         else if (type == 1) ackMessage = "ackrsp";
+        else if (type == 2) ackMessage = "ackrdy";
 
         byte[] header = CreateHeader((byte)type, (byte)acknowledge, 2, 0);
         byte[] messageBytes = Encoding.ASCII.GetBytes(ackMessage);
         byte[] messageToSend = CreatePacket(header, messageBytes);
 
         udpClient.Send(messageToSend, messageToSend.Length, remoteEndPoint);
-        Console.WriteLine("Odoslaná správa typu " + type +" s ACK " + acknowledge + " do " + remoteEndPoint);
+        //Console.WriteLine("Odoslaná správa typu " + type +" s ACK " + acknowledge + " do " + remoteEndPoint);
     }
     private static void SendMessage(string message, IPEndPoint remoteEndPoint, int acknowledge)
     {
         byte[] messageBytes = Encoding.ASCII.GetBytes(message);
-        byte[] header = CreateHeader(2, (byte)acknowledge, 2, 0);
+        byte[] header = CreateHeader(3, (byte)acknowledge, 2, 0);
         byte[] messageToSend = CreatePacket(header, messageBytes);
         udpClient.Send(messageToSend, messageToSend.Length, remoteEndPoint);
-        Console.WriteLine("Odoslaná správa: " + message + " do " + remoteEndPoint);
+        //Console.WriteLine("Odoslaná správa: " + message + " do " + remoteEndPoint);
     }
 
     private static bool ackFunction(IPEndPoint remoteEndPoint, int acknowledge)
@@ -97,7 +98,7 @@ class P2PNode
             }
             if (hadHandshake)
             {
-                Console.WriteLine("Handshake bol úspešný, pokračujeme v komunikácii.");
+                //Console.WriteLine("Handshake bol úspešný, pokračujeme v komunikácii.");
             }
         }
         return hadHandshake; 
@@ -120,7 +121,7 @@ class P2PNode
         Buffer.BlockCopy(BitConverter.GetBytes(fragmentOffset), 0, header, 6, 2);
 
         // Výpis pre kontrolu
-        Console.WriteLine("Vytvorená hlavička (bajty): " + BitConverter.ToString(header));
+        //Console.WriteLine("Vytvorená hlavička (bajty): " + BitConverter.ToString(header));
 
         return header;
     }
@@ -140,9 +141,7 @@ class P2PNode
 
         // Extrahovanie Fragment Offset (4. dvojica bajtov)
         returnArray[3] = BitConverter.ToUInt16(header, 6);
-
-        // Výpis pre kontrolu
-        Console.WriteLine("Rozbalená hlavička - Typ: " + returnArray[0]+ ", ACK: "+returnArray[1]);
+        //Console.WriteLine("Rozbalená hlavička - Typ: " + returnArray[0]+ ", ACK: "+returnArray[1]);
 
         return returnArray;
     }
@@ -157,9 +156,8 @@ class P2PNode
 
         // Skopíruj dáta za hlavičku
         Buffer.BlockCopy(data, 0, packet, header.Length, data.Length);
-
-        // Výpis pre kontrolu
-        Console.WriteLine("Vytvorený balík (bajty): " + BitConverter.ToString(packet));
+        
+        //Console.WriteLine("Vytvorený balík (bajty): " + BitConverter.ToString(packet));
 
         return packet;
     }
@@ -212,23 +210,23 @@ class P2PNode
                     {
                         string message = Encoding.ASCII.GetString(data);
                         Console.WriteLine("\nPrijatá správa: "+ message +" od "+ localEndPoint);
-                        Console.WriteLine("Úspešne sme dokončili handshake!");
+                        //Console.WriteLine("Úspešne sme dokončili handshake!");
 
                         // Nastavenie príznaku, že handshake bol úspešný, ale neukončujeme program
                         hadHandshake = true;
 
                         // Pokračujeme v komunikácii po handshaku
-                        Console.WriteLine("Handshake bol úspešný. Pokračujeme v komunikácii.");
-                        SendMessage(1, localEndPoint, currentAck + 1);
+                        //Console.WriteLine("Handshake bol úspešný. Pokračujeme v komunikácii.");
+                        SendMessage(2, localEndPoint, currentAck + 1);
                     }else if (currentAck == ack + 2)
                     {
                         string message = Encoding.ASCII.GetString(data);
                         Console.WriteLine("\nPrijatá správa: "+ message +" od "+ localEndPoint);
-                        Console.WriteLine("Úspešne sme dokončili handshake!");
+                        //Console.WriteLine("Úspešne sme dokončili handshake!");
 
                         hadHandshake = true;
 
-                        Console.WriteLine("Handshake bol úspešný. Pokračujeme v komunikácii.");
+                        //Console.WriteLine("Handshake bol úspešný. Pokračujeme v komunikácii.");
                     }
                     else
                     {
