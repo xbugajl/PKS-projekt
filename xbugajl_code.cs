@@ -132,15 +132,18 @@ class P2PNode
         Console.WriteLine($"Odosielanie súboru: {fileName}, veľkosť: {fileBytes.Length} bajtov.");
         SendWithFragmentation(fileBytes, remoteEndPoint, fileName);
     }
-    private static void KillSession(Thread receiveThread){
-        receiveThread.Abort();
-        udpClient.Close();
+    private static void KillSession(Thread receiveThread)
+    {
+        isRunning = false;
     }
     private static void SendWithFragmentation(byte[] data, IPEndPoint remoteEndPoint, string dataType)
     {
         if (data.Length <= fragmentSize)
         {
-            udpClient.Send(data, data.Length, remoteEndPoint);
+            // Odoslanie bez fragmentácie
+            byte[] header = CreateHeader(3, (ushort)ack, 0, 0);
+            byte[] packet = CreatePacket(header, data);
+            udpClient.Send(packet, packet.Length, remoteEndPoint);
             Console.WriteLine($"{dataType} odoslaný bez fragmentácie, veľkosť: {data.Length} bajtov.");
         }
         else
@@ -155,11 +158,19 @@ class P2PNode
                 byte[] fragment = new byte[size];
                 Array.Copy(data, offset, fragment, 0, size);
 
-                byte[] header = CreateHeader(3, (ushort)ack, 1, (ushort)i);
+                int isLastFragment = (i == fragments - 1) ? 2 : 1; // Príznak pre posledný fragment
+                byte[] header = CreateHeader(3, (ushort)ack, (ushort)isLastFragment, (ushort)i);
                 byte[] packet = CreatePacket(header, fragment);
-                udpClient.Send(packet, packet.Length, remoteEndPoint);
 
-                Console.WriteLine($"Odoslaný fragment {i + 1}/{fragments}, veľkosť: {size} bajtov.");
+                try
+                {
+                    udpClient.Send(packet, packet.Length, remoteEndPoint);
+                    Console.WriteLine($"Odoslaný fragment {i + 1}/{fragments}, veľkosť: {size} bajtov, posledný: {isLastFragment == 2}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Chyba pri odosielaní fragmentu: " + ex.Message);
+                }
             }
 
             Console.WriteLine($"Všetky fragmenty {dataType} boli úspešne odoslané.");
@@ -182,9 +193,46 @@ class P2PNode
     private static void SendMessage(string message, IPEndPoint remoteEndPoint, int acknowledge)
     {
         byte[] messageBytes = Encoding.ASCII.GetBytes(message);
-        byte[] header = CreateHeader(3, (byte)acknowledge, 2, 0);
-        byte[] messageToSend = CreatePacket(header, messageBytes);
-        udpClient.Send(messageToSend, messageToSend.Length, remoteEndPoint);
+        if (messageBytes.Length <= fragmentSize)
+        {
+            byte[] header = CreateHeader(4, (byte)acknowledge, 0, 0);
+            byte[] messageToSend = CreatePacket(header, messageBytes);
+            udpClient.Send(messageToSend, messageToSend.Length, remoteEndPoint);
+        }
+        else
+        {
+            int fragments = 0;
+            /*if ((double)messageBytes.Length % fragmentSize == 0)
+            {
+                fragments = (int)Math.Ceiling((double)messageBytes.Length / fragmentSize);
+            }
+            else
+            {
+                fragments = (int)Math.Ceiling((double)messageBytes.Length / fragmentSize) + 1;
+            }  */
+            fragments = (int)Math.Ceiling((double)messageBytes.Length / fragmentSize);
+            for (int i = 0; i < fragments; i++)
+            {
+                int offset = i * fragmentSize;
+                int size = Math.Min(fragmentSize, messageBytes.Length - offset);
+                byte[] fragment = new byte[size];
+                Array.Copy(messageBytes, offset, fragment, 0, size);
+
+                int isLastFragment = (i == fragments - 1) ? 2 : 1; // Príznak pre posledný fragment
+                byte[] header = CreateHeader(4, (ushort)ack, (ushort)isLastFragment, (ushort)i);
+                byte[] packet = CreatePacket(header, fragment);
+                try
+                {
+                    udpClient.Send(packet, packet.Length, remoteEndPoint);
+                    Console.WriteLine($"Odoslaný fragment {i + 1}/{fragments}, veľkosť: {size} bajtov, posledný: {isLastFragment == 2}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Chyba pri odosielaní fragmentu: " + ex.Message);
+                }
+            }
+        }
+       
         //Console.WriteLine("Odoslaná správa: " + message + " do " + remoteEndPoint);
     }
 
@@ -295,7 +343,8 @@ class P2PNode
             byte[] fileData = receivedFragments.SelectMany(fragment => fragment).ToArray();
 
             // Uloženie súboru
-            string savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
+            string savePath = AppDomain.CurrentDomain.BaseDirectory;
+            Console.WriteLine($"Cesta k spustiteľnému súboru: {savePath}");
             File.WriteAllBytes(savePath, fileData);
 
             Console.WriteLine($"Súbor {fileName} bol úspešne prijatý a uložený na: {savePath}");
@@ -357,33 +406,46 @@ class P2PNode
                         hadHandshake = true;
                         break;
                     case 3:
-                            if (!receivingFile)
-                            {
-                                // Inicializácia prijímania súboru
-                                receivingFile = true;
-                                totalFragments = fragmentOffset + 1;
-                                fileName = Encoding.UTF8.GetString(data);
-                                Console.WriteLine($"Začalo prijímanie súboru: {fileName}, očakávaný počet fragmentov: {totalFragments}");
-                            }
-                            else
-                            {
-                                // Pridanie prijatého fragmentu do zoznamu
-                                receivedFragments.Add(data);
-                                Console.WriteLine(
-                                    $"Prijatý fragment {fragmentOffset + 1}/{totalFragments}, veľkosť: {data.Length} bajtov.");
-
-                                // Ak sme prijali všetky fragmenty, poskladáme ich a uložíme
-                                if (receivedFragments.Count == totalFragments)
-                                {
-                                    AssembleAndSaveFile();
-                                    receivingFile = false;
-                                    receivedFragments.Clear();
-                                }
-                            }
-
-                            break;
-                    case 4:
+                        if (fragmentFlag == 0) // Nefragmentovaná správa
+                        {
+                            AssembleAndSaveFile();
+                        }
                         break;
+                    case 4:
+                        if (fragmentFlag == 0) // Nefragmentovaná správa
+                        {
+                            message = Encoding.ASCII.GetString(data);
+                            Console.WriteLine("\nPrijatá správa: " + message + " od " + localEndPoint);
+                        }
+                        else // Fragmentovaná správa
+                        {
+                            receivedFragments.Add(data); // Pridáme prvý prijatý fragment
+                            Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {data.Length} bajtov.");
+
+                            // Čakanie na ďalšie fragmenty
+                            while (fragmentFlag != 2) // 2 označuje posledný fragment
+                            {
+                                byte[] nextFragment = udpClient.Receive(ref localEndPoint);
+                                byte[] fragmentData = UnpackPacket(nextFragment);
+
+                                if (typeOfData != 4) continue; // Ignorujeme iné typy správ
+
+                                receivedFragments.Add(fragmentData);
+                                Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {fragmentData.Length} bajtov.");
+                            }
+
+                            // Posledný fragment
+                            Console.WriteLine("Prijatý posledný fragment. Skladanie správy...");
+                            byte[] completeMessageData = receivedFragments.SelectMany(fragment => fragment).ToArray();
+                            string completeMessage = Encoding.ASCII.GetString(completeMessageData);
+
+                            Console.WriteLine("\nPrijatá správa: " + completeMessage + " od " + localEndPoint);
+
+                            // Vyčistenie zoznamu fragmentov
+                            receivedFragments.Clear();
+                        }
+                        break;
+
                 }
             }
             catch (Exception ex)
@@ -391,5 +453,6 @@ class P2PNode
                 Console.WriteLine("Chyba pri prijímaní správ: " + ex.Message);
             }
         }
+        udpClient.Close();
     }
 }
