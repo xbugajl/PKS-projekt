@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 
-class P2PNode
+class P2PNode 
 {
     private static UdpClient udpClient;
     private static IPEndPoint localEndPoint;
@@ -15,22 +15,18 @@ class P2PNode
     private static int typeOfData = -1; 
     private static int ack = 5;
     private static int fragmentFlag = -1;
-    private static int fragmentOffset = 0;
-    private static bool fragmentTypeSelected = false;
-    private static bool fragmenting = false;
-    private static int fragmentSize = 0;
-    private static int currentAck = 0;
+    private static int fragmentOffset;
+    private static bool fragmentTypeSelected;
+    private static int fragmentSize;
+    private static int currentAck;
     private static List<byte[]> receivedFragments = new List<byte[]>();
-    private static int totalFragments = 0;
-    private static string fileName = string.Empty;
-    private static bool receivingFile = false;
 
     static void Main(string[] args)
     {
         //nastavenie lokalneho endpointu (IP a port)
         Console.Write("Zadaj cislo portu ktory chces pouzit:");
         int localPort;
-        localPort = int.Parse(Console.ReadLine());
+        localPort = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
         udpClient = new UdpClient(localPort);
         localEndPoint = new IPEndPoint(IPAddress.Any, localPort);
 
@@ -41,17 +37,14 @@ class P2PNode
         int remotePort = 0;
         
         Console.Write("Zadaj IP adresu cieľa (napr. 127.0.0.1): ");
-        remoteIp = Console.ReadLine();
+        remoteIp = Console.ReadLine() ?? throw new InvalidOperationException();
         Console.Write("Zadaj port cieľa (napr. 11001): ");
-        remotePort = int.Parse(Console.ReadLine());
+        remotePort = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
         
-        IPEndPoint remoteEndPoint = new IPEndPoint(IPAddress.Parse(remoteIp), remotePort);
-        string message = "";
-        ackFunction(remoteEndPoint, ack);
+        IPEndPoint remoteEndPoint = new IPEndPoint(IPAddress.Parse(remoteIp ?? throw new InvalidOperationException()), remotePort);
+        AckFunction(remoteEndPoint, ack);
         while (isRunning)
         {
-            // Zadaj správu na odoslanie
-            
             while (isRunning)
             {
                 Console.WriteLine("\nMenu:");
@@ -60,7 +53,7 @@ class P2PNode
                 Console.WriteLine("3. Poslať súbor");
                 Console.WriteLine("4. Ukončiť");
                 Console.Write("Vyber možnosť: ");
-                string choice = Console.ReadLine();
+                string choice = Console.ReadLine() ?? throw new InvalidOperationException();
 
                 switch (choice)
                 {
@@ -83,7 +76,7 @@ class P2PNode
                         break;
                     case "4":
                         isRunning = false;
-                        KillSession(receiveThread);
+                        KillSession();
                         break;
                     default:
                         Console.WriteLine("Neplatná možnosť.");
@@ -97,14 +90,14 @@ class P2PNode
     private static void SendTextMessage(IPEndPoint remoteEndPoint)
     {
         Console.Write("Zadaj správu na odoslanie: ");
-        String message = Console.ReadLine();
+        String message = Console.ReadLine() ?? throw new InvalidOperationException();
         SendMessage(message, remoteEndPoint, ack);
     }
     private static void SetFragmentSize()
     {
         fragmentTypeSelected = true;
         Console.Write("Zadaj veľkosť fragmentu (min. 64, max. 1500): ");
-        int newSize = int.Parse(Console.ReadLine());
+        int newSize = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
         if (newSize >= 64 && newSize <= 1500)
         {
             fragmentSize = newSize;
@@ -118,8 +111,13 @@ class P2PNode
     private static void SendFile(IPEndPoint remoteEndPoint)
     {
         Console.Write("Zadaj cestu k súboru: ");
-        string filePath = Console.ReadLine();
-
+        string filePath = Console.ReadLine() ?? throw new InvalidOperationException();
+        string fileName = Path.GetFileName(filePath) ?? throw new InvalidOperationException();
+        Console.WriteLine(fileName);
+        byte[] header = CreateHeader(5, (byte)ack, 0, 0);
+        byte[] messageBytes = Encoding.ASCII.GetBytes(fileName);
+        byte[] messageToSend = CreatePacket(header, messageBytes);
+        udpClient.Send(messageToSend, messageToSend.Length, remoteEndPoint);
         if (!File.Exists(filePath))
         {
             Console.WriteLine("Súbor neexistuje.");
@@ -127,12 +125,12 @@ class P2PNode
         }
 
         byte[] fileBytes = File.ReadAllBytes(filePath);
-        string fileName = Path.GetFileName(filePath);
+        
 
         Console.WriteLine($"Odosielanie súboru: {fileName}, veľkosť: {fileBytes.Length} bajtov.");
         SendWithFragmentation(fileBytes, remoteEndPoint, fileName);
     }
-    private static void KillSession(Thread receiveThread)
+    private static void KillSession()
     {
         isRunning = false;
     }
@@ -201,16 +199,7 @@ class P2PNode
         }
         else
         {
-            int fragments = 0;
-            /*if ((double)messageBytes.Length % fragmentSize == 0)
-            {
-                fragments = (int)Math.Ceiling((double)messageBytes.Length / fragmentSize);
-            }
-            else
-            {
-                fragments = (int)Math.Ceiling((double)messageBytes.Length / fragmentSize) + 1;
-            }  */
-            fragments = (int)Math.Ceiling((double)messageBytes.Length / fragmentSize);
+            int fragments = (int)Math.Ceiling((double)messageBytes.Length / fragmentSize);
             for (int i = 0; i < fragments; i++)
             {
                 int offset = i * fragmentSize;
@@ -236,7 +225,7 @@ class P2PNode
         //Console.WriteLine("Odoslaná správa: " + message + " do " + remoteEndPoint);
     }
 
-    private static bool ackFunction(IPEndPoint remoteEndPoint, int acknowledge)
+    private static void AckFunction(IPEndPoint remoteEndPoint, int acknowledge)
     {
         if (!hasRecieved)
         {
@@ -255,9 +244,8 @@ class P2PNode
                 //Console.WriteLine("Handshake bol úspešný, pokračujeme v komunikácii.");
             }
         }
-        return hadHandshake; 
     }
-    static byte[] CreateHeader(ushort type, ushort ack, ushort fragmentFlag, ushort fragmentOffset)
+    static byte[] CreateHeader(ushort type, ushort acknow, ushort fragmentflag, ushort fragmentoffset)
     {
         // Vytvorenie poľa bajtov pre hlavičku (4 časti po 2 bajty)
         byte[] header = new byte[8];
@@ -266,13 +254,13 @@ class P2PNode
         Buffer.BlockCopy(BitConverter.GetBytes(type), 0, header, 0, 2);
 
         // ACK -> uložené ako ďalšie 2 bajty
-        Buffer.BlockCopy(BitConverter.GetBytes(ack), 0, header, 2, 2);
+        Buffer.BlockCopy(BitConverter.GetBytes(acknow), 0, header, 2, 2);
 
         // Fragment Flag -> ďalšie 2 bajty
-        Buffer.BlockCopy(BitConverter.GetBytes(fragmentFlag), 0, header, 4, 2);
+        Buffer.BlockCopy(BitConverter.GetBytes(fragmentflag), 0, header, 4, 2);
 
         // Fragment Offset -> posledné 2 bajty
-        Buffer.BlockCopy(BitConverter.GetBytes(fragmentOffset), 0, header, 6, 2);
+        Buffer.BlockCopy(BitConverter.GetBytes(fragmentoffset), 0, header, 6, 2);
 
         // Výpis pre kontrolu
         //Console.WriteLine("Vytvorená hlavička (bajty): " + BitConverter.ToString(header));
@@ -335,27 +323,43 @@ class P2PNode
 
         return data;
     }
-    private static void AssembleAndSaveFile()
+
+    private static void AssembleAndSaveFile( byte[] data, string fileName)
     {
         try
         {
-            // Poskladanie súboru zo všetkých fragmentov
-            byte[] fileData = receivedFragments.SelectMany(fragment => fragment).ToArray();
+            // Získanie cesty k adresáru projektu (kde sú zdrojové kódy)
+            string sourceCodePath = Directory.GetCurrentDirectory();
 
-            // Uloženie súboru
-            string savePath = AppDomain.CurrentDomain.BaseDirectory;
-            Console.WriteLine($"Cesta k spustiteľnému súboru: {savePath}");
-            File.WriteAllBytes(savePath, fileData);
+            // Nastavenie cesty k adresáru, kde sa má ukladať súbor
+            string assembledFilesPath = Path.Combine(sourceCodePath, "AssembledFiles");
 
-            Console.WriteLine($"Súbor {fileName} bol úspešne prijatý a uložený na: {savePath}");
+            // Kontrola a vytvorenie adresára, ak neexistuje
+            if (!Directory.Exists(assembledFilesPath))
+            {
+                Directory.CreateDirectory(assembledFilesPath);
+                Console.WriteLine("Adresár bol úspešne vytvorený: {0}", assembledFilesPath);
+            }
+
+            // Nastavenie cesty pre výsledný súbor
+            string fullFilePath = Path.Combine(assembledFilesPath, fileName);
+
+            // Uloženie dát do výsledného súboru
+            File.WriteAllBytes(fullFilePath, data);
+
+            Console.WriteLine("Súbor bol úspešne uložený na ceste: {0}", fullFilePath);
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Chyba pri skladaní alebo ukladaní súboru: " + ex.Message);
+            Console.WriteLine("Proces zlyhal: {0}", ex.Message);
         }
     }
+
+
+
     private static void ReceiveMessages()
     {
+        string filename = ""; 
         while (isRunning)
         {
             try
@@ -408,7 +412,27 @@ class P2PNode
                     case 3:
                         if (fragmentFlag == 0) // Nefragmentovaná správa
                         {
-                            AssembleAndSaveFile();
+                            AssembleAndSaveFile( data,filename);
+                        }else // Fragmentovaná správa
+                        {
+                            receivedFragments.Add(data); // Pridáme prvý prijatý fragment
+                            Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {data.Length} bajtov.");
+
+                            // Čakanie na ďalšie fragmenty
+                            while (fragmentFlag != 2) // 2 označuje posledný fragment
+                            {
+                                byte[] nextFragment = udpClient.Receive(ref localEndPoint);
+                                byte[] fragmentData = UnpackPacket(nextFragment);
+
+                                if (typeOfData != 3) continue; // Ignorujeme iné typy správ
+
+                                receivedFragments.Add(fragmentData);
+                                Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {fragmentData.Length} bajtov.");
+                            }
+                            
+                            byte[] allData = receivedFragments.SelectMany(fragment => fragment).ToArray();
+                            AssembleAndSaveFile(allData,filename);
+                            receivedFragments.Clear();
                         }
                         break;
                     case 4:
@@ -445,6 +469,10 @@ class P2PNode
                             receivedFragments.Clear();
                         }
                         break;
+                    case 5:
+                        filename = Encoding.ASCII.GetString(data);
+                        Console.WriteLine($"Ideme prijimat subor {filename}!");
+                        break;
 
                 }
             }
@@ -456,3 +484,4 @@ class P2PNode
         udpClient.Close();
     }
 }
+
