@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
+using PKSprojekt;
 
 class P2PNode 
 {
@@ -139,6 +140,8 @@ class P2PNode
         if (data.Length <= fragmentSize)
         {
             // Odoslanie bez fragmentácie
+            ushort crc = CRC.ComputeChecksum(data);
+            Console.WriteLine($"CRC-16 pre správu: 0x{crc:X4}");
             byte[] header = CreateHeader(3, (ushort)ack, 0, 0);
             byte[] packet = CreatePacket(header, data);
             udpClient.Send(packet, packet.Length, remoteEndPoint);
@@ -261,6 +264,9 @@ class P2PNode
 
         // Fragment Offset -> posledné 2 bajty
         Buffer.BlockCopy(BitConverter.GetBytes(fragmentoffset), 0, header, 6, 2);
+        
+        // Checksum CRC 16
+        Buffer.BlockCopy(BitConverter.GetBytes(fragmentoffset), 0, header, 8, 2);
 
         // Výpis pre kontrolu
         //Console.WriteLine("Vytvorená hlavička (bajty): " + BitConverter.ToString(header));
@@ -270,7 +276,7 @@ class P2PNode
 
     static ushort[] UnpackHeader(byte[] header)
     {
-        ushort[] returnArray = new ushort[4];
+        ushort[] returnArray = new ushort[5];
 
         // Extrahovanie Type (prvé 2 bajty)
         returnArray[0] = BitConverter.ToUInt16(header, 0);
@@ -283,6 +289,9 @@ class P2PNode
 
         // Extrahovanie Fragment Offset (4. dvojica bajtov)
         returnArray[3] = BitConverter.ToUInt16(header, 6);
+        
+        //Extrahovanie Checksum
+        returnArray[4] = BitConverter.ToUInt16(header, 8);
         //Console.WriteLine("Rozbalená hlavička - Typ: " + returnArray[0]+ ", ACK: "+returnArray[1]);
 
         return returnArray;
@@ -320,8 +329,14 @@ class P2PNode
         currentAck = headerArray[1];
         fragmentFlag = headerArray[2];
         fragmentOffset = headerArray[3];
-
-        return data;
+        if (CRC.VerifyChecksum(data, headerArray[4]))
+        {
+            return data;
+        }
+        else
+        {
+            throw new Exception("Chyba kontroly integrity!");
+        }
     }
 
     private static void AssembleAndSaveFile( byte[] data, string fileName)
@@ -473,7 +488,6 @@ class P2PNode
                         filename = Encoding.ASCII.GetString(data);
                         Console.WriteLine($"Ideme prijimat subor {filename}!");
                         break;
-
                 }
             }
             catch (Exception ex)
