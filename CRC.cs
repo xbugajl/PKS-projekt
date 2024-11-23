@@ -1,5 +1,4 @@
 ﻿namespace PKSprojekt;
-
 using System;
 
 class CRC
