@@ -481,15 +481,27 @@ class P2PNode
         return SimulateCRCCorruption(data, 0.05);
     }
 
-    private static void AssembleAndSaveFile( byte[] data, string fileName)
+    private static void AssembleAndSaveFile(byte[] data, string fileName)
     {
         try
         {
-            // Získanie cesty k adresáru projektu (kde sú zdrojové kódy)
-            string sourceCodePath = Directory.GetCurrentDirectory();
+            // Získanie cesty od používateľa
+            Console.Write("Zadaj cestu k adresáru, kde chceš uložiť súbor (alebo stlač ENTER pre predvolenú cestu): ");
+            string userPath = Console.ReadLine();
+        
+            string assembledFilesPath;
 
-            // Nastavenie cesty k adresáru, kde sa má ukladať súbor
-            string assembledFilesPath = Path.Combine(sourceCodePath, "AssembledFiles");
+            // Ak používateľ nezadal cestu, použije sa predvolená cesta
+            if (string.IsNullOrWhiteSpace(userPath))
+            {
+                // Nastavenie predvolenej cesty k adresáru
+                string sourceCodePath = Directory.GetCurrentDirectory();
+                assembledFilesPath = Path.Combine(sourceCodePath, "AssembledFiles");
+            }
+            else
+            {
+                assembledFilesPath = userPath;
+            }
 
             // Kontrola a vytvorenie adresára, ak neexistuje
             if (!Directory.Exists(assembledFilesPath))
