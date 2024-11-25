@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 namespace PKSprojekt;
 
+
 class P2PNode 
 {
     private static UdpClient udpClient;
@@ -27,6 +28,8 @@ class P2PNode
     private static bool snW = false;
     private static ushort integrityCRC;
     private static KeepAlive keepAlive;
+    private static CancellationTokenSource cts = new CancellationTokenSource();
+    Task monitoringTask = keepAlive.StartAsync(cts.Token);
     private static List<byte[]> receivedFragments = new List<byte[]>();
     //private static GoBackN gbnSender;
 
@@ -56,7 +59,7 @@ class P2PNode
         
         if (hadHandshake)
         {
-            keepAlive.Start();
+            Task.Run(async () => await keepAlive.StartAsync(cts.Token));
             while (isRunning)
             {
                 Console.WriteLine("\nMenu:"); 
@@ -221,10 +224,13 @@ class P2PNode
     public static void KillSession()
     {
         Console.WriteLine("Ukončujem program...");
+        if (cts != null)
+        {
+            cts.Cancel();
+        }
 
         // Nastavte `isRunning` na false, aby hlavná slučka aj vlákna skončili
         isRunning = false;
-        keepAlive.Stop();
         // Zavrite UdpClient
         if (udpClient != null)
         {
@@ -389,6 +395,7 @@ class P2PNode
         if (!GetHandshake())
         {
             Console.WriteLine("Handshake zlyhal po maximálnom počte pokusov.");
+            KillSession();
         }
         else
         {
@@ -684,22 +691,40 @@ class P2PNode
                     case 4: // Posielanie správ
                         if (fragmentFlag == 0) // Nefragmentovaná správa
                         {
-                            message = Encoding.ASCII.GetString(data);
-                            Console.WriteLine("\nPrijatá správa: " + message + " od " + localEndPoint);
-                        }
-                        else // Fragmentovaná správa
-                        {
-                            // Pridanie prvého fragmentu po kontrole duplikátov
-                            if (!receivedFragments.Any(f => BitConverter.ToUInt16(f, 0) == fragmentOffset))
+                            
+                            if (CRC.VerifyChecksum(data, integrityCRC))
                             {
-                                receivedFragments.Add(data);
-                                if(showAllFlag) Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {data.Length} bajtov.");
+                                sendACK(true);
+                                message = Encoding.ASCII.GetString(data);
+                                Console.WriteLine("\nPrijatá správa: " + message + " od " + localEndPoint);
                             }
                             else
                             {
-                                if(showAllFlag)  Console.WriteLine($"Ignorovaný duplikát fragmentu {fragmentOffset + 1}.");
+                                sendACK(false);
                             }
+                        }
+                        else // Fragmentovaná správa
+                        {
+                            if (CRC.VerifyChecksum(data, integrityCRC))
+                            {
+                                sendACK(true);
+                                if (receivedFragments.All(f => BitConverter.ToUInt16(f, 0) != fragmentOffset))
+                                {
+                                    receivedFragments.Add(data);
+                                    if(showAllFlag) Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {data.Length} bajtov.");
+                                }
+                                else
+                                {
+                                    if(showAllFlag) Console.WriteLine($"Ignorovaný duplikát fragmentu {fragmentOffset + 1}.");
+                                }
 
+                            }
+                            else
+                            {
+                                sendACK(false);
+                            }
+                            // Pridanie prvého fragmentu po kontrole duplikátov
+                            
                             // Čakanie na ďalšie fragmenty
                             while (fragmentFlag != 2) // 2 označuje posledný fragment
                             {
@@ -707,15 +732,22 @@ class P2PNode
                                 byte[] fragmentData = UnpackPacket(nextFragment);
 
                                 if (typeOfData != 4) continue; // Ignorujeme iné typy správ
-
-                                if (!receivedFragments.Any(f => BitConverter.ToUInt16(f, 0) == fragmentOffset))
+                                if (CRC.VerifyChecksum(data, integrityCRC))
                                 {
-                                    receivedFragments.Add(fragmentData);
-                                    if(showAllFlag) Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {fragmentData.Length} bajtov.");
+                                    sendACK(true);
+                                    if (!receivedFragments.Any(f => BitConverter.ToUInt16(f, 0) == fragmentOffset))
+                                    {
+                                        receivedFragments.Add(fragmentData);
+                                        if(showAllFlag) Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {fragmentData.Length} bajtov.");
+                                    }
+                                    else
+                                    {
+                                        if(showAllFlag) Console.WriteLine($"Ignorovaný duplikát fragmentu {fragmentOffset + 1}.");
+                                    }
                                 }
                                 else
                                 {
-                                    if(showAllFlag) Console.WriteLine($"Ignorovaný duplikát fragmentu {fragmentOffset + 1}.");
+                                    sendACK(false);
                                 }
                             }
 
@@ -751,8 +783,7 @@ class P2PNode
                         if(showAllFlag) Console.WriteLine("Prijaty ping odosielam pong");
                         break;
                     case 11:
-                        if(showAllFlag) Console.WriteLine("Prijaty pong resetujem keepAlive");
-                        keepAlive.resetFailedPings();
+                        if(showAllFlag) Console.WriteLine("Prijaty pong ");
                         break;
                 }
             }
