@@ -485,7 +485,7 @@ class P2PNode
         fragmentOffset = headerArray[3];
         integrityCRC = headerArray[4];
         
-        return SimulateCRCCorruption(data, 0.05);
+        return SimulateCRCCorruption(data, 0.01);
     }
 
     private static void AssembleAndSaveFile(byte[] data, string fileName)

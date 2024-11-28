@@ -43,8 +43,6 @@ class CRC
     public static bool VerifyChecksum(byte[] data, ushort expectedCrc)
     {
         ushort calculatedCrc = ComputeChecksum(data);
-        Console.WriteLine($"Calculated CRC: {calculatedCrc}");
-        Console.WriteLine($"Expected CRC: {expectedCrc}");
         return calculatedCrc == expectedCrc;
     }
 }
