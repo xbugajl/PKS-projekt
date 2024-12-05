@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PKSprojekt")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0867fa25ce40a520662168ec600051ead39c8e5b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+906fd58d37eca747a4d787f2fe6e177b11a2021b")]
 [assembly: System.Reflection.AssemblyProductAttribute("PKSprojekt")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PKSprojekt")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
