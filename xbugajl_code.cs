@@ -2,6 +2,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Security.Authentication;
 using System.Text;
@@ -172,10 +173,15 @@ class P2PNode
         return true;
     }
 
+    private static char nextChar(char character)
+    {
+        return character++;
+    }
+    
     private static void SendTextMessage(IPEndPoint remoteEndPoint)
     {
         Console.Write("Zadaj správu na odoslanie: ");
-        String message = Console.ReadLine() ?? throw new InvalidOperationException();
+        string message = Console.ReadLine() ?? throw new InvalidOperationException();
         SendMessage(message, remoteEndPoint, ack);
     }
     private static void SetFragmentSize()

@@ -1,0 +1,15 @@
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\bin\Debug\net8.0\PKSprojekt.exe
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\bin\Debug\net8.0\PKSprojekt.deps.json
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\bin\Debug\net8.0\PKSprojekt.runtimeconfig.json
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\bin\Debug\net8.0\PKSprojekt.dll
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\bin\Debug\net8.0\PKSprojekt.pdb
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\obj\Debug\net8.0\PKSprojekt.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\obj\Debug\net8.0\PKSprojekt.AssemblyInfoInputs.cache
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\obj\Debug\net8.0\PKSprojekt.AssemblyInfo.cs
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\obj\Debug\net8.0\PKSprojekt.csproj.CoreCompileInputs.cache
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\obj\Debug\net8.0\PKSprojekt.dll
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\obj\Debug\net8.0\refint\PKSprojekt.dll
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\obj\Debug\net8.0\PKSprojekt.pdb
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\obj\Debug\net8.0\PKSprojekt.genruntimeconfig.cache
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\obj\Debug\net8.0\ref\PKSprojekt.dll
+C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\obj\Debug\net8.0\PKSprojekt.sourcelink.json
