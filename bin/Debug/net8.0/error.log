@@ -490,3 +490,191 @@
    at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
    at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
    at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\Desktop\STUBA\3. Semester\PKS\PKSprojekt\xbugajl_code.cs:line 607
+12. 12. 2024 16:03:09: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 546
+12. 12. 2024 16:04:37: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 532
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 487
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 633
+12. 12. 2024 16:04:44: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 546
+12. 12. 2024 16:04:47: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 546
+12. 12. 2024 16:04:50: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 546
+12. 12. 2024 16:04:50: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 546
+12. 12. 2024 16:07:19: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 546
+12. 12. 2024 16:08:32: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 532
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 487
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 551
+12. 12. 2024 16:08:50: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 532
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 487
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 551
+12. 12. 2024 16:09:32: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 632
+12. 12. 2024 16:09:37: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 546
+12. 12. 2024 16:09:40: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 546
+12. 12. 2024 16:09:43: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 546
+12. 12. 2024 16:09:43: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 546
+12. 12. 2024 17:22:11: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 527
+12. 12. 2024 17:23:10: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 623
+12. 12. 2024 17:23:14: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 527
+12. 12. 2024 17:23:17: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 527
+12. 12. 2024 17:23:20: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 527
+12. 12. 2024 17:23:20: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 527
+12. 12. 2024 17:40:45: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 527
+12. 12. 2024 17:49:47: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 527
+12. 12. 2024 17:50:09: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 527
+12. 12. 2024 17:57:08: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 527
+12. 12. 2024 17:57:30: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 537
+12. 12. 2024 18:01:38: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 537
+12. 12. 2024 18:01:43: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 537
+12. 12. 2024 18:02:05: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 537
+12. 12. 2024 18:06:46: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 537
+12. 12. 2024 18:07:13: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 537
+12. 12. 2024 18:21:09: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 537
+12. 12. 2024 18:21:35: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 18:24:26: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 18:24:47: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 18:26:41: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 18:26:47: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 18:27:09: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 18:27:27: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 18:28:53: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 18:29:13: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 18:34:18: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 18:35:18: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 686
+12. 12. 2024 18:35:22: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 18:35:54: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 18:37:46: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 18:38:11: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 18:38:38: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548

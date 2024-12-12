@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\42195\\Desktop\\STUBA\\3. Semester\\PKS\\PKSprojekt\\PKSprojekt.csproj",
+      "projectUniqueName": "C:\\Users\\42195\\RiderProjects\\PKS-projekt\\PKSprojekt.csproj",
       "projectName": "PKSprojekt",
-      "projectPath": "C:\\Users\\42195\\Desktop\\STUBA\\3. Semester\\PKS\\PKSprojekt\\PKSprojekt.csproj",
+      "projectPath": "C:\\Users\\42195\\RiderProjects\\PKS-projekt\\PKSprojekt.csproj",
       "packagesPath": "C:\\Users\\42195\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\42195\\Desktop\\STUBA\\3. Semester\\PKS\\PKSprojekt\\obj\\",
+      "outputPath": "C:\\Users\\42195\\RiderProjects\\PKS-projekt\\obj\\",
       "projectStyle": "PackageReference",
       "UsingMicrosoftNETSdk": false,
       "configFilePaths": [

@@ -30,7 +30,9 @@ class P2PNode
     private static ushort integrityCRC;
     private static KeepAlive keepAlive;
     private static CancellationTokenSource cts = new CancellationTokenSource();
+    private static string assembledFilesPath;
     Task monitoringTask = keepAlive.StartAsync(cts.Token);
+    private static readonly object snWLock = new object();
     private static List<byte[]> receivedFragments = new List<byte[]>();
     //private static GoBackN gbnSender;
 
@@ -68,10 +70,12 @@ class P2PNode
                 Console.WriteLine("2. Poslať textovú správu");
                 Console.WriteLine("3. Poslať súbor");
                 Console.WriteLine("4. Nastavenie spoôsobu zobrazenia");
-                Console.WriteLine("5. Ukončiť");
+                Console.WriteLine("5. Nastavenie miesta pre ulozenie suboru");
+                Console.WriteLine("6. Ukončiť");
                 Console.Write("Vyber možnosť: "); 
                 string choice = Console.ReadLine() ?? throw new InvalidOperationException();
-            
+                string sourceCodePath = Directory.GetCurrentDirectory();
+                assembledFilesPath = Path.Combine(sourceCodePath, "AssembledFiles");
                 switch (choice) 
                 { 
                     case "1": 
@@ -96,6 +100,9 @@ class P2PNode
                         SetDisplay();
                         break;
                     case "5": 
+                        SetDirectory();
+                        break;
+                    case "6":
                         KillSession();
                         break;
                     default:
@@ -125,6 +132,28 @@ class P2PNode
                 break;
         }
     }
+
+    private static void SetDirectory()
+    {
+        Console.Write("Zadaj cestu k adresáru, kde chceš uložiť súbor (alebo stlač ENTER pre predvolenú cestu): ");
+        string userPath = Console.ReadLine();
+
+        // Ak používateľ nezadal cestu, použije sa predvolená cesta
+        if (!string.IsNullOrWhiteSpace(userPath))
+        {
+            assembledFilesPath = userPath;
+            if (!Directory.Exists(assembledFilesPath))
+            {
+                Directory.CreateDirectory(assembledFilesPath);
+                Console.WriteLine("Adresár bol úspešne vytvorený: {0}", assembledFilesPath);
+            }
+        }
+        else
+        {
+            Console.WriteLine($"Zadany enter pouzita predvolena cesta {assembledFilesPath}");
+        }
+        
+    }
     private static void SetHandshake(bool value)
     {
         lock (handshakeLock)
@@ -142,42 +171,51 @@ class P2PNode
 
     private static bool ResendUntilAck(byte[] packet, IPEndPoint remoteEndPoint)
     {
+        snW = false; // Reset Stop-and-Wait príznaku pre nový prenos
         int retryCount = 0;
         const int maxRetries = 5;
         const int timeout = 100; // 0.1 sekundy
-        while (!snW && retryCount < maxRetries)
+
+        while (retryCount < maxRetries)
         {
             try
             {
+                // Odošleme paket
                 udpClient.Send(packet, packet.Length, remoteEndPoint);
-                if(showAllFlag) Console.WriteLine("Čaká sa na ACK...");
+                Console.WriteLine($"Odoslaný pokus {retryCount + 1}, čaká sa na ACK...");
+
+                // Čakanie na ACK so stanoveným timeoutom
+                int elapsedTime = 0;
+                while (!snW && elapsedTime < timeout)
+                {
+                    Thread.Sleep(10); // Kontrolujeme ACK každých 10 ms
+                    elapsedTime += 10;
+                }
+
+                // Ak prišlo ACK, ukončíme cyklus
+                lock (snWLock)
+                {
+                    if (snW)
+                    {
+                        Console.WriteLine("ACK prijaté, ukončujem odosielanie.");
+                        return true;
+                    }
+                }
+
                 retryCount++;
-
-                // Počkáme na ACK so stanoveným timeoutom
-                Thread.Sleep(timeout);
-
-                if (snW) break;
             }
             catch (Exception ex)
             {
                 LogException(ex);
             }
         }
-        if(showAllFlag) Console.WriteLine("Pokus uspesny");
-        if (!snW)
-        {
-            Console.WriteLine("ACK neprišlo po maximálnom počte pokusov. Zlyhanie prenosu.");
-            return false;
-        }
 
-        return true;
+        // Ak po maximálnom počte pokusov nie je ACK, vrátime false
+        Console.WriteLine("ACK neprišlo po maximálnom počte pokusov. Zlyhanie prenosu.");
+        return false;
     }
 
-    private static char nextChar(char character)
-    {
-        return character++;
-    }
-    
+
     private static void SendTextMessage(IPEndPoint remoteEndPoint)
     {
         Console.Write("Zadaj správu na odoslanie: ");
@@ -187,9 +225,9 @@ class P2PNode
     private static void SetFragmentSize()
     {
         fragmentTypeSelected = true;
-        Console.Write("Zadaj veľkosť fragmentu (min. 64, max. 1464): ");//toto koli tomu aby sme sa vyhli IP fragmentacii
+        Console.Write("Zadaj veľkosť fragmentu (max. 1464): ");//toto koli tomu aby sme sa vyhli IP fragmentacii
         int newSize = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
-        if (newSize >= 64 && newSize <= 1464)
+        if (newSize <= 1464)
         {
             fragmentSize = newSize;
             Console.WriteLine($"Veľkosť fragmentu nastavená na {fragmentSize} bajtov.");
@@ -198,6 +236,7 @@ class P2PNode
         {
             Console.WriteLine("Neplatná veľkosť fragmentu.");
         }
+        
     }
     private static void SendFile(IPEndPoint remoteEndPoint)
     {
@@ -260,7 +299,7 @@ class P2PNode
             try
             {
                 if(showAllFlag) Console.WriteLine("Pokus o prve odoslanie fragmentu");
-                udpClient.Send(packet, packet.Length, remoteEndPoint);
+                //udpClient.Send(packet, packet.Length, remoteEndPoint);
                 if(showAllFlag) Console.WriteLine("Čaká sa na ACK...");
             
             }
@@ -291,20 +330,9 @@ class P2PNode
                 if(showAllFlag) Console.WriteLine($"CRC: {crc}");
                 byte[] header = CreateHeader(3, (ushort)ack, (ushort)isLastFragment, (ushort)i, crc);
                 byte[] packet = CreatePacket(header, fragment);
-                try
-                {
-                    if(showAllFlag) Console.WriteLine("Pokus o prve odoslanie fragmentu");
-                    udpClient.Send(packet, packet.Length, remoteEndPoint);
-                    if(showAllFlag) Console.WriteLine("Čaká sa na ACK...");
-            
-                }
-                catch (Exception ex)
-                {
-                   LogException(ex);
-                }
                 if (ResendUntilAck(packet, remoteEndPoint))
                 {
-                    if(showAllFlag) Console.WriteLine($"Odoslaný fragment {i + 1}/{fragments}, veľkosť: {size} bajtov, posledný: {isLastFragment == 2}");
+                   Console.WriteLine($"Odoslaný fragment {i + 1}/{fragments}, veľkosť: {size} bajtov, posledný: {isLastFragment == 2}");
                 } 
             }
 
@@ -334,17 +362,6 @@ class P2PNode
             ushort crc = CRC.ComputeChecksum(messageBytes);
             byte[] header = CreateHeader(4, (byte)acknowledge, 0, 0, crc);
             byte[] packet = CreatePacket(header, messageBytes);
-            try
-            {
-                if(showAllFlag) Console.WriteLine("Pokus o prve odoslanie fragmentu");
-                udpClient.Send(packet, packet.Length, remoteEndPoint);
-                if(showAllFlag) Console.WriteLine("Čaká sa na ACK...");
-            
-            }
-            catch (Exception ex)
-            {
-                LogException(ex);
-            }
             if (ResendUntilAck(packet, remoteEndPoint))
             {
                 Console.WriteLine($"Odoslaná správa {message}, veľkosť: {message.Length}");
@@ -364,20 +381,9 @@ class P2PNode
                 ushort crc = CRC.ComputeChecksum(fragment);
                 byte[] header = CreateHeader(4, (ushort)ack, (ushort)isLastFragment, (ushort)i, crc);
                 byte[] packet = CreatePacket(header, fragment);
-                try
-                {
-                    if(showAllFlag) Console.WriteLine("Pokus o prve odoslanie fragmentu");
-                    udpClient.Send(packet, packet.Length, remoteEndPoint);
-                    if(showAllFlag) Console.WriteLine("Čaká sa na ACK...");
-            
-                }
-                catch (Exception ex)
-                {
-                    LogException(ex);
-                }
                 if (ResendUntilAck(packet, remoteEndPoint))
                 {
-                    if(showAllFlag) Console.WriteLine($"Odoslaný fragment {i + 1}/{fragments}, veľkosť: {size} bajtov, posledný: {isLastFragment == 2}");
+                    Console.WriteLine($"Odoslaný fragment {i + 1}/{fragments}, veľkosť: {size} bajtov, posledný: {isLastFragment == 2}");
                 } 
             }
         }
@@ -493,62 +499,19 @@ class P2PNode
         
         return SimulateCRCCorruption(data, 0.01);
     }
-
-    private static void AssembleAndSaveFile(byte[] data, string fileName)
-    {
-        try
-        {
-            // Získanie cesty od používateľa
-            Console.Write("Zadaj cestu k adresáru, kde chceš uložiť súbor (alebo stlač ENTER pre predvolenú cestu): ");
-            string userPath = Console.ReadLine();
-        
-            string assembledFilesPath;
-
-            // Ak používateľ nezadal cestu, použije sa predvolená cesta
-            if (string.IsNullOrWhiteSpace(userPath))
-            {
-                // Nastavenie predvolenej cesty k adresáru
-                string sourceCodePath = Directory.GetCurrentDirectory();
-                assembledFilesPath = Path.Combine(sourceCodePath, "AssembledFiles");
-            }
-            else
-            {
-                assembledFilesPath = userPath;
-            }
-
-            // Kontrola a vytvorenie adresára, ak neexistuje
-            if (!Directory.Exists(assembledFilesPath))
-            {
-                Directory.CreateDirectory(assembledFilesPath);
-                Console.WriteLine("Adresár bol úspešne vytvorený: {0}", assembledFilesPath);
-            }
-
-            // Nastavenie cesty pre výsledný súbor
-            string fullFilePath = Path.Combine(assembledFilesPath, fileName);
-
-            // Uloženie dát do výsledného súboru
-            File.WriteAllBytes(fullFilePath, data);
-
-            Console.WriteLine("Súbor bol úspešne uložený na ceste: {0}", fullFilePath);
-        }
-        catch (Exception ex)
-        {
-            LogException(ex);
-        }
-    }
-
+    
     private static void sendACK(bool success)
     {
         byte[] header;
         if (success)
         {
             header = CreateHeader(6, (byte)(ack + 1), 0, 0, 0); // Správne prijatý fragment
-            if(showAllFlag) Console.WriteLine("Odosielam ACK: " + (ack + 1));
+            Console.WriteLine("Odosielam ACK: " + (ack + 1));
         }
         else
         {
             header = CreateHeader(6, (byte)(ack - 1), 0, 0, 0); // Nesprávny fragment
-            if(showAllFlag) Console.WriteLine("Odosielam NACK: " + (ack - 1));
+            Console.WriteLine("Odosielam NACK: " + (ack - 1));
         }
 
         byte[] messageToSend = CreatePacket(header, new byte[0]);
@@ -583,6 +546,10 @@ class P2PNode
                     keepAlive.ReceiveImpulse();
                 }
                 byte[] data = UnpackPacket(receivedBytes);
+                if (keepAlive != null)
+                {
+                    keepAlive.ReceiveImpulse();
+                }
                 switch (typeOfData)
                 {
                     case 0://ackmsg
@@ -631,7 +598,17 @@ class P2PNode
                             if (CRC.VerifyChecksum(data, integrityCRC))
                             {
                                 sendACK(true);
-                                AssembleAndSaveFile(data, filename);
+                                try
+                                {
+                                    string fullFilePath = Path.Combine(assembledFilesPath, filename);
+                                    // Uloženie dát do výsledného súboru
+                                    File.WriteAllBytes(fullFilePath, data);
+                                    Console.WriteLine("Súbor bol úspešne uložený na ceste: {0}", fullFilePath);
+                                }
+                                catch (Exception ex)
+                                {
+                                    LogException(ex);
+                                }
                             }
                             else
                             {
@@ -640,34 +617,14 @@ class P2PNode
                         }
                         else // Fragmentovaná správa
                         {
-                            if (CRC.VerifyChecksum(data, integrityCRC))
-                            {
-                                sendACK(true);
-
-                                // Kontrola, či fragment už nahodou neexistuje
-                                if (receivedFragments.All(f => BitConverter.ToUInt16(f, 0) != fragmentOffset))
-                                {
-                                    receivedFragments.Add(data);
-                                    if(showAllFlag) Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {data.Length} bajtov.");
-                                }
-                                else
-                                {
-                                    if(showAllFlag) Console.WriteLine($"Ignorovaný duplikát fragmentu {fragmentOffset + 1}.");
-                                }
-                            }
-                            else
-                            {
-                                sendACK(false);
-                            }
-
                             // Čakanie na ďalšie fragmenty
                             while (fragmentFlag != 2) // 2 označuje posledný fragment
                             {
                                 byte[] nextFragment = udpClient.Receive(ref localEndPoint);
                                 byte[] fragmentData = UnpackPacket(nextFragment);
 
-                                if (typeOfData != 3) continue; // Ignorujeme iné typy správ
-
+                                //if (typeOfData != 3) continue; // Ignorujeme iné typy správ
+                                
                                 if (CRC.VerifyChecksum(fragmentData, integrityCRC))
                                 {
                                     sendACK(true);
@@ -676,7 +633,7 @@ class P2PNode
                                     if (receivedFragments.All(f => BitConverter.ToUInt16(f, 0) != fragmentOffset))
                                     {
                                         receivedFragments.Add(fragmentData);
-                                        if(showAllFlag)  Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {fragmentData.Length} bajtov.");
+                                        Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {fragmentData.Length} bajtov.");
                                     }
                                     else
                                     {
@@ -690,7 +647,17 @@ class P2PNode
                             }
 
                             byte[] allData = receivedFragments.SelectMany(fragment => fragment).ToArray();
-                            AssembleAndSaveFile(allData, filename);
+                            try
+                            {
+                                string fullFilePath = Path.Combine(assembledFilesPath, filename);
+                                // Uloženie dát do výsledného súboru
+                                File.WriteAllBytes(fullFilePath, allData);
+                                Console.WriteLine("Súbor bol úspešne uložený na ceste: {0}", fullFilePath);
+                            }
+                            catch (Exception ex)
+                            {
+                                LogException(ex);
+                            }
                             receivedFragments.Clear();
                         }
                         break;
@@ -700,9 +667,9 @@ class P2PNode
                             
                             if (CRC.VerifyChecksum(data, integrityCRC))
                             {
-                                sendACK(true);
                                 message = Encoding.ASCII.GetString(data);
                                 Console.WriteLine("\nPrijatá správa: " + message + " od " + localEndPoint);
+                                sendACK(true);
                             }
                             else
                             {
@@ -711,54 +678,42 @@ class P2PNode
                         }
                         else // Fragmentovaná správa
                         {
-                            if (CRC.VerifyChecksum(data, integrityCRC))
-                            {
-                                sendACK(true);
-                                if (receivedFragments.All(f => BitConverter.ToUInt16(f, 0) != fragmentOffset))
-                                {
-                                    receivedFragments.Add(data);
-                                    if(showAllFlag) Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {data.Length} bajtov.");
-                                }
-                                else
-                                {
-                                    if(showAllFlag) Console.WriteLine($"Ignorovaný duplikát fragmentu {fragmentOffset + 1}.");
-                                }
-
-                            }
-                            else
-                            {
-                                sendACK(false);
-                            }
                             // Pridanie prvého fragmentu po kontrole duplikátov
                             
                             // Čakanie na ďalšie fragmenty
-                            while (fragmentFlag != 2) // 2 označuje posledný fragment
+                            while (true) // 2 označuje posledný fragment
                             {
                                 byte[] nextFragment = udpClient.Receive(ref localEndPoint);
+                                keepAlive.ReceiveImpulse();
                                 byte[] fragmentData = UnpackPacket(nextFragment);
-
+                                
                                 if (typeOfData != 4) continue; // Ignorujeme iné typy správ
+                                Console.WriteLine(integrityCRC);
                                 if (CRC.VerifyChecksum(data, integrityCRC))
                                 {
                                     sendACK(true);
                                     if (!receivedFragments.Any(f => BitConverter.ToUInt16(f, 0) == fragmentOffset))
                                     {
                                         receivedFragments.Add(fragmentData);
-                                        if(showAllFlag) Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {fragmentData.Length} bajtov.");
+                                        Console.WriteLine($"Prijatý fragment {fragmentOffset + 1}, veľkosť: {fragmentData.Length} bajtov.");
                                     }
                                     else
                                     {
                                         if(showAllFlag) Console.WriteLine($"Ignorovaný duplikát fragmentu {fragmentOffset + 1}.");
                                     }
+
+                                    if (fragmentFlag == 2) break;
                                 }
                                 else
                                 {
                                     sendACK(false);
                                 }
+
+                                integrityCRC = 0;
                             }
 
                             // Posledný fragment
-                            if(showAllFlag) Console.WriteLine("Prijatý posledný fragment. Skladanie správy...");
+                            Console.WriteLine("Prijatý posledný fragment. Skladanie správy...");
                             byte[] completeMessageData = receivedFragments.SelectMany(fragment => fragment).ToArray();
                             string completeMessage = Encoding.ASCII.GetString(completeMessageData);
 
@@ -773,15 +728,18 @@ class P2PNode
                         if(showAllFlag) Console.WriteLine($"Ideme prijimat subor {filename}!");
                         break;
                     case 6: // ACK správa pre Stop-and-Wait
-                        if (currentAck == ack + 1)
+                        lock (snWLock)
                         {
-                            if(showAllFlag) Console.WriteLine("ACK prijaté, pokračujeme.");
-                            snW = true;
-                        }
-                        else if (currentAck == ack - 1)
-                        {
-                            if(showAllFlag) Console.WriteLine("Nesprávny ACK, čakáme.");
-                            snW = false;
+                            if (currentAck == ack + 1)
+                            {
+                                Console.WriteLine("ACK prijaté.");
+                                snW = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Nesprávne ACK: očakávalo sa {ack + 1}, prijaté {currentAck}.");
+                                snW = false;
+                            }
                         }
                         break;
                     case 10:

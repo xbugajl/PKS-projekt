@@ -12,7 +12,7 @@ class KeepAlive
     private readonly object lockObject = new object(); // Synchronizácia zdieľaných dát
     private DateTime lastImpulseTime;
     private readonly int timeoutSeconds = 3; // Maximálny čas bez impulzu
-    private readonly int checkIntervalMs = 3000; // Interval kontroly (3 sekundy)
+    private readonly int checkIntervalMs = 30000000; // Interval kontroly (3 sekundy)
     private int ack;
     private int failedPingCount = 0; // Počet neúspešných PING pokusov
     private readonly int maxFailedPingCount = 3; // Maximálny počet neúspešných pokusov
@@ -38,7 +38,7 @@ class KeepAlive
                 {
                     if ((DateTime.Now - lastImpulseTime).TotalSeconds > timeoutSeconds)
                     {
-                        Console.WriteLine("Timeout! Žiadny impulz za posledné 3 sekundy. Odosielam PING.");
+                        //Console.WriteLine("Timeout! Žiadny impulz za posledné 3 sekundy. Odosielam PING.");
                         SendPing();
 
                         failedPingCount++;
