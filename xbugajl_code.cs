@@ -618,9 +618,10 @@ class P2PNode
                         else // Fragmentovaná správa
                         {
                             // Čakanie na ďalšie fragmenty
-                            while (fragmentFlag != 2) // 2 označuje posledný fragment
+                            while (true) // 2 označuje posledný fragment
                             {
                                 byte[] nextFragment = udpClient.Receive(ref localEndPoint);
+                                keepAlive.ReceiveImpulse();
                                 byte[] fragmentData = UnpackPacket(nextFragment);
 
                                 //if (typeOfData != 3) continue; // Ignorujeme iné typy správ
@@ -639,6 +640,8 @@ class P2PNode
                                     {
                                         if(showAllFlag) Console.WriteLine($"Ignorovaný duplikát fragmentu {fragmentOffset + 1}.");
                                     }
+
+                                    if (fragmentFlag == 2) break;
                                 }
                                 else
                                 {
@@ -678,9 +681,6 @@ class P2PNode
                         }
                         else // Fragmentovaná správa
                         {
-                            // Pridanie prvého fragmentu po kontrole duplikátov
-                            
-                            // Čakanie na ďalšie fragmenty
                             while (true) // 2 označuje posledný fragment
                             {
                                 byte[] nextFragment = udpClient.Receive(ref localEndPoint);
@@ -688,8 +688,7 @@ class P2PNode
                                 byte[] fragmentData = UnpackPacket(nextFragment);
                                 
                                 if (typeOfData != 4) continue; // Ignorujeme iné typy správ
-                                Console.WriteLine(integrityCRC);
-                                if (CRC.VerifyChecksum(data, integrityCRC))
+                                if (CRC.VerifyChecksum(fragmentData, integrityCRC))
                                 {
                                     sendACK(true);
                                     if (!receivedFragments.Any(f => BitConverter.ToUInt16(f, 0) == fragmentOffset))

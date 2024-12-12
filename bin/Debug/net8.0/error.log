@@ -678,3 +678,227 @@
    at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
    at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
    at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:01:58: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:06:18: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:06:51: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:06:54: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:06:56: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:06:56: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:06:57: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:06:58: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:01: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:02: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:05: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:06: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:06: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:07: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:08: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:13: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:16: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:17: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:18: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:20: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:22: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:23: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:07:23: Value cannot be null. (Parameter 'path1')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.IO.Path.Combine(String path1, String path2)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 654
+12. 12. 2024 19:12:36: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:12:53: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:13:15: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:13:54: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:13:56: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:13:58: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:14:01: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:14:02: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:14:05: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:14:08: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:14:10: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:14:10: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:14:11: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:14:16: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:14:16: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:14:18: Index was outside the bounds of the array.
+   at PKSprojekt.P2PNode.SimulateCRCCorruption(Byte[] data, Double corruptionProbability) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 529
+   at PKSprojekt.P2PNode.UnpackPacket(Byte[] packet) in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 500
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 548
+12. 12. 2024 19:14:20: Value cannot be null. (Parameter 'path1')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.IO.Path.Combine(String path1, String path2)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 655
+12. 12. 2024 19:20:24: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:20:28: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:20:33: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:20:38: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:20:38: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:21:53: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:22:09: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:22:10: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:22:15: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:22:20: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:23:01: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:23:13: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:23:15: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:23:20: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:23:25: An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543
+12. 12. 2024 19:23:25: A blocking operation was interrupted by a call to WSACancelBlockingCall.
+   at System.Net.Sockets.Socket.ReceiveFrom(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint& remoteEP)
+   at System.Net.Sockets.UdpClient.Receive(IPEndPoint& remoteEP)
+   at PKSprojekt.P2PNode.ReceiveMessages() in C:\Users\42195\RiderProjects\PKS-projekt\xbugajl_code.cs:line 543

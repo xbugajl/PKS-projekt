@@ -12,7 +12,7 @@ class KeepAlive
     private readonly object lockObject = new object(); // Synchronizácia zdieľaných dát
     private DateTime lastImpulseTime;
     private readonly int timeoutSeconds = 3; // Maximálny čas bez impulzu
-    private readonly int checkIntervalMs = 30000000; // Interval kontroly (3 sekundy)
+    private readonly int checkIntervalMs = 5000; // Interval kontroly (3 sekundy)
     private int ack;
     private int failedPingCount = 0; // Počet neúspešných PING pokusov
     private readonly int maxFailedPingCount = 3; // Maximálny počet neúspešných pokusov
@@ -45,7 +45,6 @@ class KeepAlive
                         if (failedPingCount >= maxFailedPingCount)
                         {
                             Console.WriteLine("Druhý uzol neodpovedá. Ukončujem pripojenie.");
-                            P2PNode.KillSession();
                             break;
                         }
                     }
@@ -55,6 +54,7 @@ class KeepAlive
             {
                 // Ukončenie vlákna po zrušení CancellationToken
                 Console.WriteLine("Monitoring bol ukončený.");
+                
                 break;
             }
             catch (Exception ex)
@@ -63,6 +63,7 @@ class KeepAlive
                 P2PNode.LogException(ex);
             }
         }
+        P2PNode.KillSession();
     }
 
     // Prijatie impulzu
